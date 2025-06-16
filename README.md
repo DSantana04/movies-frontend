@@ -1,95 +1,205 @@
-# Documentação do Frontend - CineRate
+# MovieRate - Frontend React com TypeScript
 
-## Visão Geral
-O frontend da plataforma CineRate foi desenvolvido em React com as seguintes tecnologias:
-- React 18
-- Tailwind CSS para estilização
-- shadcn/ui para componentes de interface
-- Lucide React para ícones
-- Vite como bundler
+Uma plataforma moderna para avaliação de filmes e séries, desenvolvida em **React com TypeScript**.
 
-## Estrutura do Projeto
+## 🚀 Funcionalidades
+
+- **Autenticação completa**: Login e registro de usuários com tipagem TypeScript
+- **Dashboard interativo**: Visualização de estatísticas e avaliações
+- **CRUD de avaliações**: Criar, visualizar e excluir avaliações de filmes/séries
+- **Interface responsiva**: Design moderno com Tailwind CSS e shadcn/ui
+- **Validação de formulários**: Validação robusta em tempo real
+- **Type Safety**: Tipagem completa em TypeScript para maior segurança
+
+## 🛠️ Tecnologias Utilizadas
+
+- **React 19** - Biblioteca principal
+- **TypeScript** - Tipagem estática
+- **React Router DOM** - Roteamento
+- **Tailwind CSS** - Estilização
+- **shadcn/ui** - Componentes de interface
+- **Lucide React** - Ícones
+- **Axios** - Requisições HTTP com tipagem
+- **Vite** - Build tool
+
+## 📋 Pré-requisitos
+
+- Node.js 18+
+- pnpm (gerenciador de pacotes)
+- APIs backend rodando:
+  - API de autenticação: `http://localhost:8000`
+  - API de avaliações: `http://localhost:8001`
+
+## 🔧 Instalação e Execução
+
+1. **Clone o repositório**
+   ```bash
+   git clone <url-do-repositorio>
+   cd movies-rating-frontend
+   ```
+
+2. **Instale as dependências**
+   ```bash
+   pnpm install
+   ```
+
+3. **Configure as URLs das APIs**
+   
+   Edite o arquivo `src/lib/api.ts` se necessário para ajustar as URLs dos backends:
+   ```typescript
+   export const API_CONFIG = {
+     AUTH_BASE_URL: 'http://localhost:8000/api/auth',
+     RATINGS_BASE_URL: 'http://localhost:8001/api/ratings'
+   } as const;
+   ```
+
+4. **Execute o projeto**
+   ```bash
+   pnpm run dev
+   ```
+
+5. **Acesse a aplicação**
+   
+   Abra [http://localhost:5173](http://localhost:5173) no seu navegador.
+
+## 📱 Páginas e Funcionalidades
+
+### 🏠 Landing Page (`/`)
+- Apresentação da plataforma
+- Links para login e registro
+- Seção de funcionalidades
+
+### 🔐 Autenticação
+- **Login** (`/login`): Autenticação de usuários existentes
+- **Registro** (`/register`): Criação de novas contas
+
+### 📊 Dashboard (`/dashboard`)
+- Estatísticas do usuário (total de avaliações, nota média, gêneros únicos)
+- Lista de todas as avaliações do usuário
+- Formulário para adicionar novas avaliações
+- Funcionalidade de exclusão de avaliações
+
+## 🔌 Integração com APIs
+
+### API de Autenticação
+- `POST /api/auth/register` - Registro de usuário
+- `POST /api/auth/login` - Login de usuário
+- `GET /api/auth/me` - Dados do usuário logado
+
+### API de Avaliações
+- `POST /api/ratings/` - Criar avaliação
+- `GET /api/ratings/` - Listar avaliações do usuário
+- `DELETE /api/ratings/{title}` - Excluir avaliação
+
+## 🎨 Design e UX
+
+- **Design responsivo**: Funciona perfeitamente em desktop e mobile
+- **Tema moderno**: Interface limpa e intuitiva
+- **Feedback visual**: Loading states, mensagens de erro e sucesso
+- **Navegação fluida**: Transições suaves entre páginas
+
+## 🔒 Segurança
+
+- **Rotas protegidas**: Dashboard acessível apenas para usuários autenticados
+- **Tokens JWT**: Autenticação baseada em tokens
+- **Interceptors**: Tratamento automático de tokens expirados
+- **Validação**: Validação de formulários no frontend
+
+## 📦 Estrutura do Projeto
 
 ```
-movies-frontend/
-├── src/
-│   ├── components/
-│   │   ├── AuthPage.jsx          # Página principal de autenticação
-│   │   ├── Login.jsx             # Componente de login
-│   │   ├── Register.jsx          # Componente de registro
-│   │   ├── Header.jsx            # Cabeçalho da aplicação
-│   │   ├── Dashboard.jsx         # Dashboard principal
-│   │   ├── AddMovieDialog.jsx    # Modal para adicionar filmes
-│   │   └── MovieCard.jsx         # Card de exibição de filme
-│   ├── contexts/
-│   │   └── AuthContext.jsx       # Contexto de autenticação
-│   ├── lib/
-│   │   └── api.js               # Configurações da API
-│   ├── App.jsx                  # Componente principal
-│   └── main.jsx                 # Ponto de entrada
+src/
+├── components/          # Componentes reutilizáveis
+│   ├── ui/             # Componentes shadcn/ui
+│   ├── Navbar.tsx      # Barra de navegação
+│   └── ProtectedRoute.tsx # Proteção de rotas
+├── contexts/           # Contextos React
+│   └── AuthContext.tsx # Contexto de autenticação
+├── lib/               # Utilitários e configurações
+│   ├── api.ts         # URLs das APIs
+│   └── services.ts    # Serviços HTTP
+├── pages/             # Páginas da aplicação
+│   ├── LandingPage.tsx
+│   ├── LoginPage.tsx
+│   ├── RegisterPage.tsx
+│   └── Dashboard.tsx
+├── types/             # Definições de tipos TypeScript
+│   └── index.ts       # Tipos principais
+├── App.tsx            # Componente principal
+└── main.tsx          # Ponto de entrada
 ```
 
-## Funcionalidades Implementadas
+## 🔧 TypeScript
 
-### 1. Autenticação
-- **Login**: Formulário com validação de email e senha
-- **Registro**: Formulário completo com confirmação de senha
-- **Gerenciamento de estado**: Context API para estado global de autenticação
-- **Persistência**: Token JWT armazenado no localStorage
+O projeto utiliza TypeScript com configuração rigorosa:
 
-### 2. Interface de Usuário
-- **Design responsivo**: Funciona em desktop e mobile
-- **Tema moderno**: Gradientes e componentes shadcn/ui
-- **Ícones**: Lucide React para ícones consistentes
-- **Feedback visual**: Loading states e mensagens de erro/sucesso
+- **Strict mode** habilitado
+- **Type checking** completo
+- **Interfaces** bem definidas para todas as entidades
+- **Type safety** em todas as requisições HTTP
+- **Props tipadas** em todos os componentes
 
-### 3. CRUD de Filmes
-- **Listagem**: Grid responsivo de cards de filmes
-- **Adição**: Modal com formulário completo (título, gênero, nota, resenha)
-- **Exclusão**: Confirmação antes de deletar
-- **Busca**: Filtro por título em tempo real
-- **Filtros**: Filtro por gênero
+### Principais tipos definidos:
 
-### 4. Recursos Adicionais
-- **Sistema de avaliação**: Exibição visual com estrelas (0-10 convertido para 0-5 estrelas)
-- **Validações**: Formulários com validação client-side
-- **Estados vazios**: Mensagens quando não há filmes
-- **Responsividade**: Layout adaptável para diferentes tamanhos de tela
+```typescript
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
 
-## Configuração da API
+interface Rating {
+  title: string;
+  genre: string;
+  rating: number;
+  user_id?: string;
+}
 
-O frontend está configurado para se conectar com dois backends:
-- **Autenticação**: `http://localhost:8000/api/auth`
-- **Avaliações**: `http://localhost:8001/api/ratings`
-
-## Como Executar
-
-1. Instalar dependências:
-```bash
-cd movies-frontend
-pnpm install
+interface AuthContextType {
+  user: User | null;
+  loading: boolean;
+  isAuthenticated: boolean;
+  login: (credentials: LoginCredentials) => Promise<{ success: boolean; error?: string }>;
+  register: (userData: RegisterData) => Promise<{ success: boolean; error?: string }>;
+  logout: () => void;
+}
 ```
 
-2. Iniciar servidor de desenvolvimento:
-```bash
-pnpm run dev --host
-```
+## 🚀 Deploy
 
-3. Acessar: `http://localhost:5173`
+Para fazer o deploy da aplicação:
 
-## Próximos Passos
+1. **Build de produção**
+   ```bash
+   pnpm run build
+   ```
 
-Para usar a aplicação completa, você precisará:
-1. Configurar e executar os backends FastAPI
-2. Configurar o MongoDB
-3. Ajustar as URLs da API se necessário
-4. Implementar funcionalidades adicionais como edição de filmes
+2. **Preview local**
+   ```bash
+   pnpm run preview
+   ```
 
-## Observações Técnicas
+3. **Deploy**
+   
+   O diretório `dist/` contém os arquivos estáticos prontos para deploy em qualquer servidor web.
 
-- A aplicação usa Context API para gerenciamento de estado
-- Tokens JWT são armazenados no localStorage
-- Todas as requisições autenticadas incluem o header Authorization
-- O design é totalmente responsivo e acessível
-- Componentes são reutilizáveis e bem estruturados
+## 🤝 Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+## 📞 Suporte
+
+Para suporte ou dúvidas, entre em contato através dos issues do GitHub.
+
+---
+
+**MovieRate** - Sua plataforma pessoal para avaliação de entretenimento com TypeScript! 🎬⭐
 
