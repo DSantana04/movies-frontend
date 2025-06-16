@@ -21,40 +21,44 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  useEffect(() => {
-    const initAuth = async (): Promise<void> => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const userData = await authService.getMe();
-          setUser(userData);
-          setIsAuthenticated(true);
-        } catch (error) {
-          console.error('Erro ao verificar autenticação:', error);
-          localStorage.removeItem('token');
-        }
+useEffect(() => {
+  const initAuth = async (): Promise<void> => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const userData = await authService.getMe();
+        setUser(userData);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('Erro ao verificar autenticação:', error);
+        // Não limpe o token aqui - deixe o interceptor lidar com isso
       }
-      setLoading(false);
-    };
-
-    initAuth();
-  }, []);
-
-  const login = async (credentials: LoginCredentials): Promise<{ success: boolean; error?: string }> => {
-    try {
-      await authService.login(credentials);
-      const userData = await authService.getMe();
-      setUser(userData);
-      setIsAuthenticated(true);
-      return { success: true };
-    } catch (error: any) {
-      console.error('Erro no login:', error);
-      return { 
-        success: false, 
-        error: error.response?.data?.detail || 'Erro no login' 
-      };
     }
+    setLoading(false);
   };
+
+  initAuth();
+}, []);
+
+const login = async (credentials: LoginCredentials): Promise<{ success: boolean; error?: string }> => {
+  try {
+    const { access_token } = await authService.login(credentials);
+    localStorage.setItem('token', access_token);
+    
+    // Forçar uma nova instância do axios com o token atualizado
+    const userData = await authService.getMe();
+    setUser(userData);
+    setIsAuthenticated(true);
+    
+    return { success: true };
+  } catch (error: any) {
+    console.error('Erro no login:', error);
+    return { 
+      success: false, 
+      error: error.response?.data?.detail || 'Erro no login' 
+    };
+  }
+};
 
   const register = async (userData: RegisterData): Promise<{ success: boolean; error?: string }> => {
     try {

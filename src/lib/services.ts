@@ -29,8 +29,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      window.location.href = '/login';
+      // Não redirecione automaticamente aqui - deixe o componente lidar com isso
     }
     return Promise.reject(error);
   }
