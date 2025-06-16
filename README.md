@@ -1,4 +1,4 @@
-# MovieRate - Frontend React com TypeScript
+# Movies Reviews - Frontend React com TypeScript
 
 ### Membros:
 - Danilo Santana
