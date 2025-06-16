@@ -1,5 +1,11 @@
 # MovieRate - Frontend React com TypeScript
 
+### Membros:
+- Danilo Santana
+- Diego Perpétuo
+- Luccas Pino
+- Milton Kiefer
+
 Uma plataforma moderna para avaliação de filmes e séries, desenvolvida em **React com TypeScript**.
 
 ## 🚀 Funcionalidades
