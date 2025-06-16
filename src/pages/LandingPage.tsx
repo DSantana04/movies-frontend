@@ -13,7 +13,7 @@ const LandingPage: React.FC = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <Film className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-gray-900">MovieRate</span>
+              <span className="text-xl font-bold text-gray-900">MovieReviews</span>
             </div>
             <div className="flex space-x-4">
               <Link to="/login">
@@ -57,7 +57,7 @@ const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Por que escolher o MovieRate?
+              Por que escolher o MovieReviews?
             </h2>
             <p className="text-lg text-gray-600">
               A plataforma completa para gerenciar suas avaliações de entretenimento
@@ -106,7 +106,7 @@ const LandingPage: React.FC = () => {
             <span className="text-lg font-semibold">MovieRate</span>
           </div>
           <p className="text-gray-400">
-            © 2025 MovieRate. Todos os direitos reservados.
+            © 2025 MovieReviews. Todos os direitos reservados.
           </p>
         </div>
       </footer>
