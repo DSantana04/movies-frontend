@@ -8,7 +8,7 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { isAuthenticated, loading, user } = useAuth();
-
+  
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
